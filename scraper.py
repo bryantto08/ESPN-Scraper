@@ -37,9 +37,11 @@ def team_leader(team):
     doc = BeautifulSoup(r,  "html.parser")
 
     # Getting Team Leader Stats via BeautifulSoup
+    logo = doc.find("img", class_="Image Logo Logo__xxl")["src"]
     tag = doc.find("section", class_="StatLeaders flex")
     team_leader = tag.children
     players = []  # Storing Players in List
+
     for i in team_leader:  # Each Player is a Dictionary
         player = {"stat_name": i.find("h2", class_="h8 mb2 clr-gray-03").text,
                   "name": i.find("span", class_="Athlete__PlayerName").text,
@@ -48,12 +50,5 @@ def team_leader(team):
         players.append(player)
         # print(stat_name.text)
         # print(position.text + ": " + name.text + ", " + stat.text)
-    return players
-
-def player_stats(player):
-    driver = init_driver("player_stats")
-
-    # Clicking
-
-
+    return [players, logo]
 

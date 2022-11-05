@@ -13,6 +13,7 @@
     </div>
     <div>
         {% if team_leaders|length > 0 %}
+        <img src="{{ logo }}">
         <h3>Team Leaders</h3>
         {% for player in team_leaders %}
         <p>{{player["stat_name"] + ": "}}</p>
