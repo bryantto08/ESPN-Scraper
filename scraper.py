@@ -75,4 +75,4 @@ def player_stats(name, position):
         stat = {"label": i.find("div", class_="StatBlockInner__Label tc clr-gray-04 n9").text,
                 "value": i.find("div", class_="StatBlockInner__Value tc fw-medium n2 clr-gray-02").text}
         p.append(stat)
-    return [p, logo]
+    return p, logo

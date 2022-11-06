@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>ESPN Scraper</title>
+    <link rel="stylesheet"  href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div>
+    <div class="navbar">
+    <a class="nav" href="./">Home Page</a>
+        <a class="nav" href="player_stats">Player Stats</a>
+    </div>
+    <div class="input-form">
         <form action="#" method="POST">
             <input type="text" name="team" placeholder="Enter a team name"/>
             <input type="submit"/>
@@ -13,12 +18,15 @@
     </div>
     <div>
         {% if team_leaders|length > 0 %}
-        <img src="{{ logo }}">
-        <h3>Team Leaders</h3>
-        {% for player in team_leaders %}
-        <p>{{player["stat_name"] + ": "}}</p>
-        <p>{{player["position"]}}: {{player["name"]}}, {{player["stat"]}}</p>
-        {% endfor %}
+            <div class="card">
+                <img class="pic" src="{{ logo }}">
+                <h3 class="intro">Team Leaders</h3>
+                <div class="content">
+                {% for player in team_leaders %}
+                    <p>{{player["stat_name"] + " | "}} {{player["position"]}}: {{player["name"]}}, {{player["stat"]}}</p>
+                {% endfor %}
+                </div>
+            </div>
         {% endif %}
     </div>
 </body>

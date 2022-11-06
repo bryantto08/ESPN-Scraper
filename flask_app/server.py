@@ -21,15 +21,17 @@ def team_leaders():
 
 @app.route("/player_stats", methods=["GET", "POST"])
 def player_stats():
-    info = [[],[]]
+    info = [[], [], []]
     if request.method == "POST":
         name = request.form["name"]
         position = request.form["position"]
-        info = scraper.player_stats(name, position)
-    return render_template("player_stats.html", stats=info[0], logo=info[1])
+        info[0] = name
+        info[1], info[2] = scraper.player_stats(name, position)
+
+    return render_template("player_stats.html", name=info[0], stats=info[1], logo=info[2])
 
 #TODO: News, specific player stats
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

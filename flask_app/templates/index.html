@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>ESPN Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<a href="team_leaders">Team Leaders</a>
-<a href="player_stats">Player Stats</a>
+<div class="navbar">
+    <a class="nav" href="team_leaders">Team Leaders</a>
+    <a class="nav" href="player_stats">Player Stats</a>
+</div>
+<div class="content">
+    <h3>Welcome to my ESPN Scraper!</h3>
+    <p>Here's what you can access:</p>
+    <ul>
+        <li>You can find the best performing players on a team.</li>
+        <li>You can find the individual stats of any player.</li>
+    </ul>
+</div>
 </body>
 </html>

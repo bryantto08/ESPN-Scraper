@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Player Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div>
-  <form action="#" method="POST">
-    <input type="text" name="name" placeholder="Enter Player Name">
-      <label for="position">Position</label>
-      <select name="position" id = "position">
-          <option value="QB">QB</option>
-          <option value="RB">RB</option>
-          <option value="WR/TE">WR/TE</option>
-      </select>
-    <input type="submit">
-  </form>
+    <div class="navbar">
+      <a class="nav" href="./">Home Page</a>
+        <a class="nav" href="team_leaders">Team Leaders</a>
+    </div>
+  <div class="input-form">
+      <form action="#" method="POST">
+        <input type="text" name="name" placeholder="Enter Player Name">
+          <label for="position">Position</label>
+          <select name="position" id = "position">
+              <option value="QB">QB</option>
+              <option value="RB">RB</option>
+              <option value="WR/TE">WR/TE</option>
+          </select>
+        <input type="submit">
+      </form>
   </div>
-  <div>
       {% if stats|length > 0 %}
-    <img src="{{logo}}">
-      {% for stat in stats %}
-      <p>{{stat["label"]}}: {{stat["value"]}}</p>
-      {% endfor %}
+    <div class="card">
+        <img class="pic" src="{{logo}}">
+        <h3 class="intro">{{name}}</h3>
+      <div class="content">
+          {% for stat in stats %}
+            <p>{{stat["label"]}}: {{stat["value"]}}</p>
+          {% endfor %}
+      </div>
+    </div>
       {% endif %}
-  </div>
+
 </body>
 </html>
