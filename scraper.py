@@ -34,7 +34,6 @@ def team_leader(team):
     doc = BeautifulSoup(r,  "html.parser")
 
     # Getting Team Leader Stats via BeautifulSoup
-    logo = doc.find("img", class_="Image Logo Logo__xxl")
     logo_tag = driver.find_element(By.XPATH,"//img[@class='Image Logo Logo__xxl']")
     logo = logo_tag.get_attribute("src")
     tag = doc.find("section", class_="StatLeaders flex")
@@ -53,5 +52,27 @@ def team_leader(team):
 
 def player_stats(name, position):
     driver = init_driver("player_stats")
+
+    # Different State Page for the different positions
     if position == "RB":
-        driver.find_element(By.XPATH,"//a[contains(text(),'Rushing')]").click()
+        driver.find_element(By.XPATH, "//a[contains(text(),'Rushing')]").click()
+    if position == "WR/TE":
+        driver.find_element(By.XPATH, "//a[contains(text(),'Receiving')]").click()
+
+    # Finding the specific player page and extracting his picture
+    driver.find_element(By.XPATH, f"//a[contains(text(),'{name}')]").click()
+    logo_tag = driver.find_element(By.XPATH, f"//img[@alt='{name}']")
+    logo = logo_tag.get_attribute("src")
+
+    # Specific scraping stats using BS4
+    r = requests.get(driver.current_url).content
+    doc = BeautifulSoup(r, "html.parser")
+    stats_box = doc.find("ul", class_="StatBlock__Content flex list ph4 pv3 justify-between")
+    stats = stats_box.children
+    p = []
+    for i in stats:
+        print(i)
+        stat = {"label": i.find("div", class_="StatBlockInner__Label tc clr-gray-04 n9").text,
+                "value": i.find("div", class_="StatBlockInner__Value tc fw-medium n2 clr-gray-02").text}
+        p.append(stat)
+    return [p, logo]

@@ -17,5 +17,13 @@
     <input type="submit">
   </form>
   </div>
+  <div>
+      {% if stats|length > 0 %}
+    <img src="{{logo}}">
+      {% for stat in stats %}
+      <p>{{stat["label"]}}: {{stat["value"]}}</p>
+      {% endfor %}
+      {% endif %}
+  </div>
 </body>
 </html>
