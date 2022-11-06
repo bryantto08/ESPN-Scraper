@@ -1,6 +1,5 @@
 from selenium import webdriver
 import requests
-import helper
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 # Initiates webdriver
