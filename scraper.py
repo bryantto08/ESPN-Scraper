@@ -1,17 +1,18 @@
 from selenium import webdriver
 import requests
+import helper
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # Initiates webdriver
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 def init_driver(type):
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
-    driver = webdriver.Chrome(executable_path='chromedriver.exe', options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     if type == "player_stats":
         driver.get("https://www.espn.com/nfl/stats/player")
     else:
@@ -21,11 +22,7 @@ def init_driver(type):
 
 
 def team_leader(team):
-    options = webdriver.ChromeOptions()
-    options.add_argument("start-maximized")
-    driver = webdriver.Chrome(executable_path='chromedriver.exe', options=options)
-    driver.get("https://www.espn.com/")
-    driver.implicitly_wait(10)  # Waiting for page to load
+    driver = init_driver("team_leader")
 
     #  Clicking NFL tab first, then specific team, then by stats page
     driver.find_element(By.XPATH, "/html/body/div[5]/div[2]/header/nav[1]/ul/li[1]/a/span/span[1]").click()
@@ -37,7 +34,9 @@ def team_leader(team):
     doc = BeautifulSoup(r,  "html.parser")
 
     # Getting Team Leader Stats via BeautifulSoup
-    logo = doc.find("img", class_="Image Logo Logo__xxl")["src"]
+    logo = doc.find("img", class_="Image Logo Logo__xxl")
+    logo_tag = driver.find_element(By.XPATH,"//img[@class='Image Logo Logo__xxl']")
+    logo = logo_tag.get_attribute("src")
     tag = doc.find("section", class_="StatLeaders flex")
     team_leader = tag.children
     players = []  # Storing Players in List
@@ -52,3 +51,7 @@ def team_leader(team):
         # print(position.text + ": " + name.text + ", " + stat.text)
     return [players, logo]
 
+def player_stats(name, position):
+    driver = init_driver("player_stats")
+    if position == "RB":
+        driver.find_element(By.XPATH,"//a[contains(text(),'Rushing')]").click()

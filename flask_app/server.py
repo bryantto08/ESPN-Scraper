@@ -21,7 +21,11 @@ def team_leaders():
 
 @app.route("/player_stats", methods=["GET", "POST"])
 def player_stats():
-    return
+    if request.method == "POST":
+        name = request.form["name"]
+        position = request.form["position"]
+        print(name, position)
+    return render_template("player_stats.html")
 
 #TODO: News, specific player stats
 

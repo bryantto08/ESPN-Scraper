@@ -7,7 +7,13 @@
 <body>
   <div>
   <form action="#" method="POST">
-    <input type="text" placeholder="Enter Player Name">
+    <input type="text" name="name" placeholder="Enter Player Name">
+      <label for="position">Position</label>
+      <select name="position" id = "position">
+          <option value="QB">QB</option>
+          <option value="RB">RB</option>
+          <option value="WR/TE">WR/TE</option>
+      </select>
     <input type="submit">
   </form>
   </div>
