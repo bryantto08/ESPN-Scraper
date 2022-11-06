@@ -3,8 +3,6 @@ import requests
 import helper
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 # Initiates webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -50,6 +48,7 @@ def team_leader(team):
         # print(position.text + ": " + name.text + ", " + stat.text)
     return [players, logo]
 
+
 def player_stats(name, position):
     driver = init_driver("player_stats")
 
@@ -68,10 +67,10 @@ def player_stats(name, position):
     r = requests.get(driver.current_url).content
     doc = BeautifulSoup(r, "html.parser")
     stats_box = doc.find("ul", class_="StatBlock__Content flex list ph4 pv3 justify-between")
-    stats = stats_box.children
+    stats = stats_box.children  # List of Different Stats Tags
     p = []
-    for i in stats:
-        print(i)
+
+    for i in stats:  # Parsing each tag to find specific stat label and value
         stat = {"label": i.find("div", class_="StatBlockInner__Label tc clr-gray-04 n9").text,
                 "value": i.find("div", class_="StatBlockInner__Value tc fw-medium n2 clr-gray-02").text}
         p.append(stat)

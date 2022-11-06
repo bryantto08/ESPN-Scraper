@@ -3,6 +3,7 @@ import scraper
 
 app = Flask(__name__)
 
+
 # Home Page
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -19,10 +20,11 @@ def team_leaders():
     return render_template("team_leaders.html", team_leaders=info[0], logo=info[1])
 
 
+# Players Stats page
 @app.route("/player_stats", methods=["GET", "POST"])
 def player_stats():
     info = [[], [], []]
-    if request.method == "POST":
+    if request.method == "POST":  # User input from page
         name = request.form["name"]
         position = request.form["position"]
         info[0] = name
