@@ -25,13 +25,13 @@ Before you begin, ensure you have met the following requirements:
 
 ## Development Expansion
 The scraper can be expanded to provide more functionality for the user, such as parsing
-through the HTML in order to retrieve news articles from the website. 
+through the HTML in order to retrieve news articles from the website. The scraper could also
+implement a SQL Database that can allow users to save information about their favorite teams.
 
 ## Technology Stack
 * Python 3
 * Selenium
 * Flask
-* MySQL
 
 
 ## Contacts
